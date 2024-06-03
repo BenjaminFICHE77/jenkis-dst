@@ -21,7 +21,7 @@ pipeline {
                 script {
                     sh '''
                         docker rm -f jenkins
-                        docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAB .
+                        docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG .
                         docker run -d -p 8000:8000 --name jenkins $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
                     '''
                 }
