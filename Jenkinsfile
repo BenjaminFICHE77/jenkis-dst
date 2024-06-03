@@ -1,9 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.9'
-        }
-    }
+    agent any
+    // agent {
+    //     docker {
+    //         image 'python:3.9'
+    //     }
+    // }
     environment {
         DOCKER_ID = "benjaminfiche77"
         DOCKER_IMAGE = "datascientestapi"
