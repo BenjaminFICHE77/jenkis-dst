@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.9'
+        }
+    }
     environment {
         DOCKER_ID = "benjaminfiche77"
         DOCKER_IMAGE = "datascientestapi"
@@ -12,23 +16,12 @@ pipeline {
             }
         }
         stage('Check Python Version') {
-            agent {
-                docker {
-                    image 'python:3.9'
-                }
-            }
             steps {
                 sh 'python --version'
             }
         }
         stage ('Testing') {
-            agent {
-                docker {
-                    image 'python:3.9'
-                }
-            }
             steps {
-                sh 'sudo pip install -r requirements.txt'
                 sh 'python -m unittest'
             }
         }
