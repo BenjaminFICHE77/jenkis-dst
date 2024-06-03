@@ -8,14 +8,17 @@ pipeline {
     stages {
         stage ('Building') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    pip install -r requirements.txt
+                    python -m unittest
+                    '''
             }
         }
-        stage ('Testing') {
-            steps {
-                sh 'python -m unittest'
-            }
-        }
+        // stage ('Testing') {
+        //     steps {
+        //         sh 'python -m unittest'
+        //     }
+        // }
         stage ('Deploying') {
             steps {
                 script {
