@@ -28,14 +28,14 @@ pipeline {
                 }
             }
         }
-        stage ('User acceptance') {
-            steps {
-                input {
-                    message "Voulez vous déployez sur la branche main ?"
-                    ok "Yes"
-                }   
-            }
-        }
+        // stage ('User acceptance') {
+        //     steps {
+        //         input {
+        //             message "Voulez vous déployez sur la branche main ?"
+        //             ok "Yes"
+        //         }   
+        //     }
+        // }
         stage('Pushing and Merging') {
             parallel {
                 stage('Pushing Image') {
@@ -47,7 +47,7 @@ pipeline {
                         sh 'docker push $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG'
                     }
                 }
-                stage () {
+                stage ('Merging') {
                     echo 'Merging done'
                 }
             }
