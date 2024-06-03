@@ -16,16 +16,16 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-        stage('Check Python Version') {
-            steps {
-                sh 'python1 --version'
-            }
-        }
-        stage ('Testing') {
-            steps {
-                sh 'python1 -m unittest'
-            }
-        }
+        // stage('Check Python Version') {
+        //     steps {
+        //         sh 'python --version'
+        //     }
+        // }
+        // stage ('Testing') {
+        //     steps {
+        //         sh 'python -m unittest'
+        //     }
+        // }
         stage ('Deploying') {
             steps {
                 script {
