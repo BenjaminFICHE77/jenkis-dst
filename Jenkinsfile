@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3'
+        }
+    }
     environment {
         DOCKER_ID = "benjaminfiche77"
         DOCKER_IMAGE = "datascientestapi"
