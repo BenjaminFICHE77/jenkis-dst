@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.9' 
+            image 'python:3.9'
         }
     }
     environment {
@@ -29,21 +29,13 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker rm -f jenkins
+                        docker rm -f jenkins || true
                         docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG .
                         docker run -d -p 8000:8000 --name jenkins $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
                     '''
                 }
             }
         }
-        // stage ('User acceptance') {
-        //     steps {
-        //         input {
-        //             message "Voulez vous déployez sur la branche main ?"
-        //             ok "Yes"
-        //         }   
-        //     }
-        // }
         stage('Pushing and Merging') {
             parallel {
                 stage('Pushing Image') {
