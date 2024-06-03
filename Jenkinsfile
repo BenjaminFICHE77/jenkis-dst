@@ -18,12 +18,12 @@ pipeline {
         }
         stage('Check Python Version') {
             steps {
-                sh 'python --version'
+                sh 'python1 --version'
             }
         }
         stage ('Testing') {
             steps {
-                sh 'python -m unittest'
+                sh 'python1 -m unittest'
             }
         }
         stage ('Deploying') {
