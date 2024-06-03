@@ -12,9 +12,9 @@ pipeline {
             }
         }
         stage ('Testing') {
-            steps {
+            // steps {
                 // sh 'python -m unittest'
-            }
+            // }
         }
         stage ('Deploying') {
             steps {
