@@ -38,11 +38,11 @@ pipeline {
         stage('Pushing and Merging') {
             parallel {
                 stage('Pushing Image') {
-                    environment {
-                        DOCKERHUB_CREDENTIALS = credentials('docker_jenkins')
-                    }
+                    // environment {
+                    //     DOCKERHUB_CREDENTIALS = credentials('docker_jenkins')
+                    // }
                     steps {
-                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                        sh 'echo 7FiBen7!120 | docker login -u benjaminfiche77 --password-stdin'
                         sh 'docker push $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG'
                     }
                 }
