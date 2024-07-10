@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-cast-db
+  labels:
+    app: {{ .Release.Name }}-cast-db
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-cast-db
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-cast-db
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-cast-db
+          image: "{{ .Values.cast_db.image.repository }}:{{ .Values.cast_db.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.cast_db.service.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-cast-db-secret
+          volumeMounts:
+            - mountPath: /var/lib/db/data
+              name: dbdata
+      volumes:
+        - name: dbdata
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-cast-db-volume-claim

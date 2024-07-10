@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-movie-db-secret
+  labels:
+    app: {{ .Release.Name }}-movie-db
+  namespace: {{ .Values.namespace }}
+data:
+  POSTGRES_DB: {{ .Values.movie_db.values.default_db }}
+  POSTGRES_USER: {{ .Values.movie_db.values.default_user }}
+  POSTGRES_PASSWORD: {{ .Values.movie_db.values.default_password }}
+  POSTGRES_HOST_AUTH_METHOD: trust

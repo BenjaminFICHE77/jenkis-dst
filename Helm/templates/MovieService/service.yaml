@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-service
+  labels:
+    app: {{ .Release.Name }}-movie-service
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: {{ .Release.Name }}-movie-service
+  ports:
+  - name: {{ .Release.Name }}-movie-service-port
+    port: {{ .Values.movie_service.service.port }} #8000
+    targetPort: {{ .Values.movie_service.service.port }} #8001
+    # nodePort: {{ .Values.movie_service.service.nodePort }} #30091

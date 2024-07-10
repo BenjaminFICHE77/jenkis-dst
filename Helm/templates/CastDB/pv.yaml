@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Release.Name }}-cast-db-volume
+  labels:
+    app: {{ .Release.Name }}-cast-db
+  namespace: {{ .Values.namespace }}
+spec:
+  storageClassName: manual
+  capacity:
+    storage: {{ .Values.cast_db.storage.size }}
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /data/db

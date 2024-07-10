@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-movie-db
+  labels:
+    app: {{ .Release.Name }}-movie-db
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-movie-db
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-movie-db
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-movie-db
+          image: "{{ .Values.movie_db.image.repository }}:{{ .Values.movie_db.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.movie_db.service.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-movie-db-secret
+          volumeMounts:
+            - mountPath: /var/lib/db/data
+              name: dbdata
+      volumes:
+        - name: dbdata
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-movie-db-volume-claim
