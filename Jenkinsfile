@@ -78,7 +78,7 @@ pipeline {
                 mkdir .kube
                 ls
                 cat $KUBECONFIG > .kube/config
-                helm upgrade --install helm-chart ./Helm --set namespace=dev
+                helm upgrade --install helm-chart-dev ./Helm --set namespace=dev
                 '''
                 }
             }
@@ -96,7 +96,25 @@ pipeline {
                 mkdir .kube
                 ls
                 cat $KUBECONFIG > .kube/config
-                helm upgrade --install helm-chart ./Helm --set namespace=staging
+                helm upgrade --install helm-chart-staging ./Helm --set namespace=staging
+                '''
+                }
+            }
+        }
+
+        stage('Deploiement en qa'){
+            environment
+            {
+                KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+            }
+            steps {
+                script {
+                sh '''
+                rm -Rf .kube
+                mkdir .kube
+                ls
+                cat $KUBECONFIG > .kube/config
+                helm upgrade --install helm-chart-qa ./Helm --set namespace=qa
                 '''
                 }
             }
@@ -120,7 +138,7 @@ pipeline {
                 mkdir .kube
                 ls
                 cat $KUBECONFIG > .kube/config
-                helm upgrade --install helm-chart ./Helm --set namespace=prod
+                helm upgrade --install helm-chart-prod ./Helm --set namespace=prod
                 '''
                 }
             }
