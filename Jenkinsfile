@@ -6,7 +6,7 @@ pipeline {
     }
     agent any // Jenkins will be able to select all available agents
     stages {
-        stage('Docker Build'){ // docker build image stage
+        stage('Docker Build'){ // docker build image stag
             steps {
                 script {
                 sh '''
